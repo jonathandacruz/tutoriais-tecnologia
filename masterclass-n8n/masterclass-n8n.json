@@ -1,0 +1,448 @@
+{
+  "name": "masterclass-n8n",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -304
+      ],
+      "id": "4fba8852-d4d4-4a47-9506-f6f3d3c250c8",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## Como um fluxo inicia ?\nAcompanhe a flecha ao lado dos componentes, essa flecha indica um nó de ação \n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -704,
+        -336
+      ],
+      "typeVersion": 1,
+      "id": "06c079a7-558f-49ee-9d9a-a35b5ac5c8d7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "path": "itens/1",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -336,
+        -64
+      ],
+      "id": "48b08859-94d6-4dfa-8cb1-cc9392ab3313",
+      "name": "Webhook",
+      "webhookId": "1ef91b19-6a15-48e2-8fd5-74583b51b60e"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -336,
+        128
+      ],
+      "id": "53f5bfc1-d77e-4cae-bbf4-d639b41903da",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "content": "## Mapeando Dados\n**Double click** to edit me. [Guide](https://docs.n8n.io/workflows/sticky-notes/)"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -688,
+        352
+      ],
+      "typeVersion": 1,
+      "id": "c6d1cdf0-6882-416a-89bf-ecca35433c63",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        -64
+      ],
+      "id": "200f5a8c-6f39-404a-87c1-ae64ae557b42",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        32,
+        608
+      ],
+      "id": "64aa5b0c-6ca8-4081-82e8-e0011f41109e",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst a = 1;\nconst b = a;\n\n\n \n//console.log fica no console do navegador\nconsole.log(\" O valor de b é \" + b);\nconsole.log(\"Teste\")\n\n\n\nconst notas = [10, 7, 4, 10]; \n\nreturn {notas: notas};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        400
+      ],
+      "id": "c603f059-ef0f-4256-8c3f-e8871b5209ff",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d6b5eba2-6679-4e4b-89a8-9917a7890310",
+              "leftValue": "={{ $json.currentDate }}",
+              "rightValue": "2025-08-26T12:55:45",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        608,
+        624
+      ],
+      "id": "73db57b4-affe-4bf1-8dbc-722a0396f42c",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "maxItems": 2,
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        784
+      ],
+      "id": "19eea421-e4e4-481b-a802-d392f64076e6",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "notas",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        608
+      ],
+      "id": "1eadfcb3-475e-4b61-aeca-c2e3bb608912",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "notas",
+              "renameField": true,
+              "outputFieldName": "notasFormatadas"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        1024
+      ],
+      "id": "33b8bf7e-6bf0-4206-9a22-8f6b605573ab",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        352,
+        560
+      ],
+      "id": "e52104dc-18ed-4ad9-b312-524be63f19fe",
+      "name": "Merge"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        608,
+        400
+      ],
+      "id": "6cd853c6-09f7-441f-bd31-fcaa28d3b6f4",
+      "name": "Não faz nada"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c44c4a55-384b-41b2-acd2-8ae623b181e8",
+              "leftValue": "={{ $json.finalPortugues }}",
+              "rightValue": 7,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        832
+      ],
+      "id": "ab89f4bd-6d2e-40c5-8974-ab35ed60d68f",
+      "name": "If",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "c17af456-d1b2-420f-9fab-ac9303cc959d"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        592,
+        1024
+      ],
+      "id": "24678b1b-56b4-43da-81e1-a857f121280e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "83b6add0-617d-4870-8d58-0211b488d39a",
+              "name": "mensagem",
+              "value": "Falso",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        384
+      ],
+      "id": "bbaa204c-165a-4f55-93aa-869addbd3d0e",
+      "name": "notasMaterias"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "83b6add0-617d-4870-8d58-0211b488d39a",
+              "name": "mensagem",
+              "value": "verdadeiro",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        816
+      ],
+      "id": "7e15fda7-73d0-4232-93d9-f24f1a94f466",
+      "name": "notasMaterias1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        []
+      ]
+    },
+    "Filter": {
+      "main": [
+        []
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "notasMaterias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "notasMaterias": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "notasMaterias1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ce55d59d-ba94-4a53-a808-34160d3dd913",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6fc150a6636032594aef5b74ae4f6056dcb1e472aacb2c03ad05ff33f2eb7546"
+  },
+  "id": "7GP7TMZG7lr4vjL9",
+  "tags": []
+}
