@@ -6,6 +6,9 @@ Se você está começando na programação ou quer se aprofundar em tecnologias 
 
 ---
 
+# Comunidade n8n
+[Faça parte da nossa comunidade n8n](https://www.jonathandacruz.com.br/automacao-n8n)
+
 ## 🎯 Sobre o Repositório
 
 Este repositório reúne:
